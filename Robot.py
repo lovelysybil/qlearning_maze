@@ -42,7 +42,7 @@ class Robot(object):
         """
         if self.testing:
             # TODO 1. No random choice when testing
-            self.epsilon = 0
+            self.epsilon = -0.1
         else:
             # TODO 2. Update parameters when learning
             self.epsilon = self.epsilon0
