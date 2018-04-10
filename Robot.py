@@ -1,4 +1,5 @@
 import random
+import math
 
 class Robot(object):
 
@@ -42,10 +43,11 @@ class Robot(object):
         """
         if self.testing:
             # TODO 1. No random choice when testing
-            self.epsilon = -0.1
+            self.epsilon = 0
         else:
             # TODO 2. Update parameters when learning
-            self.epsilon = self.epsilon0
+            self.t = self.t + 1
+            self.epsilon = self.epsilon0 / (1 + math.log(self.t))
 
         return self.epsilon
 
@@ -70,8 +72,7 @@ class Robot(object):
         if state in self.Qtable:
             pass
         else:
-            reward_default = self.maze.reward["default"]
-            self.Qtable[state] = {'u': reward_default, 'd': reward_default, 'l': reward_default, 'r': reward_default}
+            self.Qtable.setdefault(state, {a: 0.0 for a in self.valid_actions})
 
     def choose_action(self):
         """
